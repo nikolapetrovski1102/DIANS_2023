@@ -1,0 +1,20 @@
+Во оваа домашна задача ја користев веб-страната Overpass Turbo која е веб-интерфејс за Overpass API кој овозможува преглед и извлекување на податоци од OpenStreetMap
+Преку оваа веб-страна можеме да филтрираме посакувани геогравски податоци со помош на код кој во оваа домашно ќе филтрираме винарии на територија на Македонија.
+
+1. Ќе пристапиме до веб-страната https://overpass-turbo.eu/
+
+2. Со помош на следниот код ги филтрираме сите винарии:
+	[out:json];
+	area["ISO3166-1"="MK"]->.searchArea;
+	(
+  		node["landuse"="vineyard"](area.searchArea);
+  		way["landuse"="vineyard"](area.searchArea);
+  		relation["landuse"="vineyard"](area.searchArea);
+	);
+	out center;
+
+3. Ги експортираме добиените податоци како raw OSM data.
+
+4. Со помош на веб-страната https://mygeodata.cloud/converter/osm-to-csv ОSM фајлот го конвертираме во CSV фајл.
+
+

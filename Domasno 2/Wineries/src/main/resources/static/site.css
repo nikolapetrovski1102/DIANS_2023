@@ -1,5 +1,6 @@
 body{
     overflow: hidden;
+    background-color: #f4f4f4;
 }
 footer {
     background-color: #222;
@@ -10,6 +11,7 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
 nav{
     border-radius: 0!important;
 }
@@ -51,7 +53,6 @@ nav{
     -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
     box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 }
-
 .aboutus-box{
     max-width: 900px;
     text-align: center;
@@ -62,3 +63,51 @@ nav{
 .aboutus-box h2, h3 {
     text-shadow: 2px 2px rosybrown;
 }
+
+.mapa{
+    max-width: 960px;
+    margin: auto;
+    display: flex;
+    margin-top: 3%;
+}
+
+.mp
+{
+    height: 60vh;
+    width: 79%;
+    border: 2px solid black;
+}
+
+.sr
+{
+    border: 2px solid black;
+    height: 60vh;
+    width: 30%;
+}
+
+.sr ul,.mp ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sr {
+    text-align: center;
+}
+
+.sr li,.mp li {
+    background-color: rosybrown;
+    color: #fff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.mp li
+{
+    margin-left: 2%;
+    width: 30%;
+}
+.mp h1
+{
+    margin-left: 3%;
+}
+/* Footer Styles */

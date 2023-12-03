@@ -6,11 +6,11 @@
 </head>
 <body>
 
-    <header th:replace="fragments/header" ></header>
+<header th:replace="~{/fragments/header}"></header>
 
-    <div id="master-page" >
+<div id="master-page" >
     <section id="wineries" class="text-left col-6">
-    <h3>These are some of the wineries: </h3>
+        <h3>These are some of the wineries: </h3>
         <div id="list-wineries">
             <dl th:each="item : ${wineires}">
                 <dt th:text="${item.getWineryName()}"></dt>
@@ -39,8 +39,8 @@
             </li>
         </ul>
     </aside>
-    </div>
+</div>
 
-    <footer th:replace="fragments/footer" ></footer>
+<footer th:replace="~{/fragments/footer}"></footer>
 </body>
 </html>

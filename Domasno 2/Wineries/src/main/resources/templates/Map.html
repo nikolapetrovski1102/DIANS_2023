@@ -6,10 +6,33 @@
 </head>
 <body>
 
-    <header th:replace="/fragments/header" ></header>
+<header th:replace="~{/fragments/header}"></header>
 
+<div class="mapa">
+    <div class="sr">
+        <h1 style="font-size: 15px">List of wineries:</h1>
+        <ul>
+            <li>Владајско Поле </li>
+            <li>Сретеново</li>
+            <li>Љуботенско Лојзе</li>
+            <li>Љуботенски Vineyards</li>
+            <li>На Бранко Лозјето</li>
+        </ul>
+    </div>
 
-    <footer th:replace="/fragments/footer" ></footer>
+    <div class="mp">
+        <ul>
+            <h1 style="font-size: 15px">Coordinates:</h1>
+            <li>41°09'N / 22°44'E </li>
+            <li>41.174924°N / 22.729722°E</li>
+            <li>41.72992°N / 22.18605°E</li>
+            <li>41.724403N / 22.190386E</li>
+            <li>41.432251, 22.009166</li>
+        </ul>
+    </div>
+</div>
+
+<footer th:replace="~{/fragments/footer}"></footer>
 
 </body>
 </html>

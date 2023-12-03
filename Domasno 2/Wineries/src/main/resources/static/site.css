@@ -1,0 +1,64 @@
+body{
+    overflow: hidden;
+}
+footer {
+    background-color: #222;
+    border: 2px solid #080808;
+    color: #9d9d9d;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+nav{
+    border-radius: 0!important;
+}
+#wineries{
+    margin-left: 10%;
+    margin-top: 2%;
+    width: 60%;
+}
+#wineries h3{
+    margin-left: -5%;
+    margin-bottom: 2%;
+}
+#list-wineries{
+    display: none;
+}
+#list-wineries dd{
+    margin-left: 3%;
+}
+#list-wineries dl {
+    margin-bottom: 2%!important;
+}
+#master-page{
+    display: inline-flex;
+    width: 100%;
+}
+#search-result{
+    height:300px;
+    width:100%;
+}
+#search-result{
+    margin-top: 2%;
+    overflow:hidden;
+    overflow-y:scroll;
+    padding: 0;
+}
+#search-result li{
+    padding: 20px 15px 20px 0;
+    -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+    -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+    box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+}
+
+.aboutus-box{
+    max-width: 900px;
+    text-align: center;
+    margin:  auto;
+    border: 3px solid #222222;
+    border-radius: 25px;
+}
+.aboutus-box h2, h3 {
+    text-shadow: 2px 2px rosybrown;
+}

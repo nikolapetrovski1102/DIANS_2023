@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Login Form Example</title>
+
+</head>
+<body>
+
+<header th:replace="~{/fragments/header}"></header>
+
+<div class="login-form" style="margin-top: 20px;">
+    <form th:action="@{/register}" th:method="post">
+        <h1>Login</h1>
+        <p style="margin: 5% 0 -5% 5%;" class="text-danger" th:text="${status}" ></p>
+        <div class="content">
+            <div class="input-field">
+                <input type="text" placeholder="Name" autocomplete="nope" name="Name">
+            </div>
+            <div class="input-field">
+                <input type="text" placeholder="Surname" autocomplete="nope" name="Surname">
+            </div>
+            <div class="input-field">
+                <input type="text" placeholder="Username" autocomplete="nope" name="Username">
+            </div>
+            <div class="input-field">
+                <input type="email" placeholder="Email" autocomplete="nope" name="Email">
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Password" autocomplete="new-password" name="Password">
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Confirm password" autocomplete="confirm-password">
+            </div>
+            <a href="#" class="link">Forgot Your Password?</a>
+        </div>
+        <div class="action">
+            <button type="submit">Register</button>
+            <button> <a href="/Login" > Sign in </a></button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="~{/fragments/footer}"></footer>
+
+</body>
+</html>

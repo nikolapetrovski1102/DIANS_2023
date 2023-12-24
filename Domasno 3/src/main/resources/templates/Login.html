@@ -6,10 +6,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/site.css" >
 </head>
 <body>
 
-<footer th:replace="~{/fragments/header}"></footer>
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Wineries Macedonia</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right" id="login" >
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="logout" style="display:none;" >
+                <li><span style="color: #fff; opacity: .5; margin: 15px;" id="username" class="glyphicon glyphicon-user"></span></li>
+                <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
 
 <div class="login-form">
     <form th:action="@{/login}" th:method="post">
@@ -25,7 +43,7 @@
             <a href="#" class="link">Forgot Your Password?</a>
         </div>
         <div class="action">
-            <button><a href="/Register" >Register</a></button>
+            <button><a href="/register" >Register</a></button>
             <button type="submit" >Sign in</button>
         </div>
     </form>

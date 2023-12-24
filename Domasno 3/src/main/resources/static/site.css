@@ -1,6 +1,6 @@
 body{
     overflow: hidden;
-    background-color: #f4f4f4;
+    background-color: #ffaeae;
 }
 footer {
     background-color: #222;
@@ -54,12 +54,17 @@ nav{
     box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 }
 .aboutus-box{
-    max-width: 900px;
+    max-width: 930px;
     text-align: center;
     margin:  auto;
     border: 3px solid #222222;
     border-radius: 25px;
+    height: 70vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
+
 .aboutus-box h2, h3 {
     text-shadow: 2px 2px rosybrown;
 }
@@ -221,3 +226,9 @@ body {
     background: #3c4d6d;
 }
 /*Login Style End*/
+
+#map {
+    height: 500px;
+    width: 900px;
+    margin: auto;
+}

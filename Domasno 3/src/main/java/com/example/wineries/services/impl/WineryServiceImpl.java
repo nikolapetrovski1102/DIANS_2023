@@ -16,7 +16,7 @@ public class WineryServiceImpl implements WineryService {
     @Override
     public List<Wineries> getWineries(){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/updated_data.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/actual_wineries.csv"));
             String line;
             List<Wineries> wineriesList = new ArrayList<>();
             String header = br.readLine();
@@ -46,7 +46,7 @@ public class WineryServiceImpl implements WineryService {
     @Override
     public List<Wineries> getALlWineries () {
         try {
-        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/updated_data.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("src/main/resources/actual_wineries.csv"));
         String line;
         List<Wineries> wineriesList = new ArrayList<>();
         String header = br.readLine();

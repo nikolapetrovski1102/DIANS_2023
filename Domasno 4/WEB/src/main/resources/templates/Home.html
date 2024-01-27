@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/site.css" >
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:replace="~{/fragments/header}"></header>
+
+<div id="master-page" >
+    <section id="wineries" class="text-left col-6">
+        <h3>These are some of the wineries: </h3>
+        <div id="list-wineries">
+            <dl th:each="item : ${wineires}">
+                <dt th:text="${item.getWineryName()}"></dt>
+                <dd th:text="${item.getAddress().substring(1)}"></dd>
+            </dl>
+        </div>
+    </section>
+        <a id="homeimga" href="map">
+            <img id="homeimg" width="600" height="400" src="/homepage.png" alt="Homepage Image">
+        </a>
+    <aside id="search-field" class="col-6">
+        <div class="row">
+            <div>
+                <div class="input-group" style="width: 100%;">
+                    <form action="/search" method="GET">
+                        <input type="text" class="form-control" placeholder="Search" id="txtSearch" name="searchQuery"/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <ul id="search-result">
+            <li th:each="wineires : ${allWineries}" th:text="${wineires.getWineryName()}">
+                <p th:text="${wineires.getAddress()}" ></p>
+            </li>
+        </ul>
+    </aside>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<footer th:replace="~{/fragments/footer}"></footer>
+</body>
+</html>

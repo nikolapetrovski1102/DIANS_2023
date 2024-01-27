@@ -2,16 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Simple Login Form Example</title>
-
+    <title>Simple Register Form Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/site.css" >
 </head>
 <body>
 
-<header th:replace="~{/fragments/header}"></header>
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Wineries Macedonia</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right" id="login" >
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="logout" style="display:none;" >
+                <li><span style="color: #fff; opacity: .5; margin: 15px;" id="username" class="glyphicon glyphicon-user"></span></li>
+                <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
 
 <div class="login-form" style="margin-top: 20px;">
     <form th:action="@{/register}" th:method="post">
-        <h1>Login</h1>
+        <h1>Register</h1>
         <p style="margin: 5% 0 -5% 5%;" class="text-danger" th:text="${status}" ></p>
         <div class="content">
             <div class="input-field">
@@ -36,7 +56,7 @@
         </div>
         <div class="action">
             <button type="submit">Register</button>
-            <button> <a href="/Login" > Sign in </a></button>
+            <button> <a href="/login" > Sign in </a></button>
         </div>
     </form>
 </div>

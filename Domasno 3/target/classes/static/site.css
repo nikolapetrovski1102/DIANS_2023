@@ -37,12 +37,10 @@ nav{
     display: inline-flex;
     width: 100%;
 }
+
 #search-result{
     height:300px;
     width:100%;
-    margin-left: 80px;
-}
-#search-result{
     margin-top: 2%;
     overflow:hidden;
     overflow-y:scroll;
@@ -82,7 +80,7 @@ nav{
 #homeimg{
     margin: 50px;
 }
-homeimga{
+#homeimga{
     height: 400px;
     width: 600px;
     margin-right: 50px;

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 @RestController
 @RequestMapping("/api")
@@ -19,25 +18,25 @@ public class WineriesController {
         this.wineService = wineService;
     }
 
-    @GetMapping("/listWineries")
-    public List<Wineries> listAll (){
-        return ResponseEntity.ok().body(wineService.listWineries()).getBody();
+    @GetMapping("/all")
+    public ResponseEntity<List<Wineries>> listAllWineries() {
+        return ResponseEntity.ok(wineService.listWineries());
     }
 
-    @GetMapping("listWineries/{searchQuery}")
-    public List<Wineries> searchWineries (@PathVariable String searchQuery){
-        if (searchQuery != ""){
-            List<Wineries> wineriesList = wineService.listWineries().stream().filter(wineries -> wineries.getWineryName().contains(searchQuery)).toList();
-            return ResponseEntity.ok(wineriesList).getBody();
+    @GetMapping("/search/{searchQuery}")
+    public ResponseEntity<List<Wineries>> searchWineries(@PathVariable String searchQuery) {
+        if (!searchQuery.isEmpty()) {
+            List<Wineries> wineriesList = wineService.listWineries().stream()
+                    .filter(wineries -> wineries.getWineryName().contains(searchQuery))
+                    .toList();
+            return ResponseEntity.ok(wineriesList);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        else{
-            return (List<Wineries>) ResponseEntity.notFound();
-        }
     }
 
-    @GetMapping("/bestWineries")
-    public List<Wineries> bestWineries () {
-        return ResponseEntity.ok(wineService.bestWineries()).getBody();
+    @GetMapping("/best")
+    public ResponseEntity<List<Wineries>> getBestWineries() {
+        return ResponseEntity.ok(wineService.bestWineries());
     }
-
 }

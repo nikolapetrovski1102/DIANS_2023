@@ -19,6 +19,7 @@ public class HomeController {
 
     private final WineryService wineryService;
     private final RestTemplate restTemplate;
+    private final String winesApiUrl = "http://localhost:8888/api/";
 
     public HomeController(WineryService wineryService, RestTemplate restTemplate) {
         this.wineryService = wineryService;
@@ -26,31 +27,29 @@ public class HomeController {
     }
 
     @GetMapping("")
-    public String HomePage (Model model) {
+    public String homePage(Model model) {
+        List<Wineries> bestWineries = getWineries("bestWineries");
+        List<Wineries> allWineries = getWineries("listWineries");
 
-        String winesApiUrl = "http://localhost:8888/api/";
-
-        ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + "bestWineries", Wineries[].class);
-        model.addAttribute("wineries", Arrays.asList(response.getBody()));
-
-        response = restTemplate.getForEntity(winesApiUrl + "listWineries", Wineries[].class);
-        model.addAttribute("allWineries", Arrays.asList(response.getBody()));
+        model.addAttribute("wineries", bestWineries);
+        model.addAttribute("allWineries", allWineries);
 
         return "Home";
     }
 
     @GetMapping("/search")
     public String searchResult(@RequestParam(name = "searchQuery", required = false) String searchQuery, Model model) {
+        List<Wineries> allWineries = getWineries("listWineries?searchQuery=" + searchQuery);
+        List<Wineries> bestWineries = getWineries("bestWineries");
 
-        String winesApiUrl = "http://localhost:8888/api/";
-
-        ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + "listWineries?searchQuery=" + searchQuery, Wineries[].class);
-        model.addAttribute("allWineries",  Arrays.asList(response.getBody()));
-
-        response = restTemplate.getForEntity(winesApiUrl + "bestWineries", Wineries[].class);
-        model.addAttribute("wineries", Arrays.asList(response.getBody()));
+        model.addAttribute("allWineries", allWineries);
+        model.addAttribute("wineries", bestWineries);
 
         return "Home";
     }
 
+    private List<Wineries> getWineries(String endpoint) {
+        ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + endpoint, Wineries[].class);
+        return Arrays.asList(response.getBody());
+    }
 }

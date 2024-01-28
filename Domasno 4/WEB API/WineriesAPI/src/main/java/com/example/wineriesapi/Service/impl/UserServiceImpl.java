@@ -2,11 +2,9 @@ package com.example.wineriesapi.Service.impl;
 
 import com.example.wineriesapi.Model.Users;
 import com.example.wineriesapi.Repository.UserRepository;
-import com.example.wineriesapi.Repository.WineRepository;
 import com.example.wineriesapi.Service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,7 +18,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkCredentials(String email, String password) {
         Users user = userRepository.findAll().stream().filter(users -> users.getEmail().equals(email) && users.getPassword().equals(password)).findFirst().orElse(null);
-
         return user != null;
     }
 

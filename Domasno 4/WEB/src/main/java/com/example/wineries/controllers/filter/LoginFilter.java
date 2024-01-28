@@ -27,7 +27,6 @@ public class LoginFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
         loginPath = filterConfig.getInitParameter("login-path");
         registerPath = filterConfig.getInitParameter("register-path");
         staticPath = filterConfig.getInitParameter("static-path");
@@ -37,20 +36,21 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         User user = (User) request.getSession().getAttribute("user");
         String path = request.getServletPath();
-        if (path.startsWith(loginPath) || path.startsWith(registerPath) || user != null || path.startsWith(staticPath)) {
-            System.out.println("WebFilter preprocessing...");
+
+        if (shouldAllowRequest(path, user)) {
+            System.out.println("AuthFilter preprocessing...");
             filterChain.doFilter(servletRequest, servletResponse);
-            System.out.println("WebFilter postprocessing...");
+            System.out.println("AuthFilter postprocessing...");
         } else {
             response.sendRedirect("/login");
         }
     }
 
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
+    private boolean shouldAllowRequest(String path, User user) {
+        return path.startsWith(loginPath) || path.startsWith(registerPath) || user != null || path.startsWith(staticPath);
     }
-}
 
+}

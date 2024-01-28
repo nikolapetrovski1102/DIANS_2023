@@ -6,11 +6,12 @@ import com.example.wineriesapi.Service.WineService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WineServiceImpl implements WineService {
 
-    private WineRepository wineRepository;
+    private final WineRepository wineRepository;
 
     public WineServiceImpl(WineRepository wineRepository) {
         this.wineRepository = wineRepository;
@@ -30,8 +31,8 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public List<Wineries> bestWineries() {
-        List<Wineries> wineriesList = wineRepository.findAll().stream().filter(wineries -> wineries.getLanduse().equals("Winery")).toList();
-
-        return wineriesList;
+        return wineRepository.findAll().stream()
+                .filter(winery -> "Winery".equals(winery.getLanduse()))
+                .collect(Collectors.toList());
     }
 }

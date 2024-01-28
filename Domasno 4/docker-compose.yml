@@ -1,0 +1,24 @@
+
+#If running with docker, switch code in files: HistoricLandmarkServiceImpl.java, DataInitializer.java, RequestHelper.java
+
+version: '3.8'
+
+services:
+  WEB:
+    build: ./WEB
+    ports:
+      - "8081:8081"
+    networks:
+      - main-network
+
+  WEB API:
+    build: ./WEB API
+    ports:
+      - "8080:8080"
+    depends_on:
+      - WEB
+    networks:
+      - main-network
+
+networks:
+  main-network:

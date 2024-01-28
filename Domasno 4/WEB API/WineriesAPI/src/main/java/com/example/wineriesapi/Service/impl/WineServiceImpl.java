@@ -27,4 +27,11 @@ public class WineServiceImpl implements WineService {
 
         return wineRepository.save(wineries);
     }
+
+    @Override
+    public List<Wineries> bestWineries() {
+        List<Wineries> wineriesList = wineRepository.findAll().stream().filter(wineries -> wineries.getLanduse().equals("Winery")).toList();
+
+        return wineriesList;
+    }
 }

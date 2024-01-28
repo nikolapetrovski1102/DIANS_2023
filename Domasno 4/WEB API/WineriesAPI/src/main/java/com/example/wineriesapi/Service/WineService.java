@@ -7,7 +7,7 @@ import java.util.List;
 public interface WineService {
 
     List<Wineries> listWineries();
-
     Wineries add();
+    List<Wineries> bestWineries ();
 
 }

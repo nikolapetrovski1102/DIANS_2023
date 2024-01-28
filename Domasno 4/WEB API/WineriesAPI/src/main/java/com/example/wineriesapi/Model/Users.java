@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "Users")
 public class Users {
     @Id
@@ -19,4 +21,11 @@ public class Users {
     private String Email;
     private String Password;
 
+    public Users(String username, String name, String surname, String email, String password) {
+        Username = username;
+        Name = name;
+        Surname = surname;
+        Email = email;
+        Password = password;
+    }
 }

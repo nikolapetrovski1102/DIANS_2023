@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Wineries")
+@Table(name = "wineries")
 public class Wineries{
     @Id
     @GeneratedValue
@@ -26,7 +26,5 @@ public class Wineries{
         this.address = address;
         this.landuse = landuse;
     }
-
-
 
 }

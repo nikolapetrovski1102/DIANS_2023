@@ -1,24 +1,31 @@
 package com.example.wineries.controllers;
 
 import com.example.wineries.models.User;
+import com.example.wineries.models.Wineries;
 import com.example.wineries.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Random;
 
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final RestTemplate restTemplate;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RestTemplate restTemplate) {
         this.userService = userService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/login")
@@ -42,18 +49,29 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String Login(@ModelAttribute User user, Model model, HttpServletResponse response,
-                        HttpServletRequest request) {
+    public String Login(@ModelAttribute User user, Model model, HttpServletResponse response) {
 
-        if (userService.loginUser(user.getEmail(), user.getPassword()))
-        {
-            User usr = userService.getUserByEmail(user.getEmail());
-            setCookie(response, usr.getUsername());
-            model.addAttribute("user", user.getName());
-            return "redirect:/";
+        String userAPIUrl = "http://localhost:8888/api/checkCredentials/" + user.getEmail() + "/" + user.getPassword();
+
+        try {
+            ResponseEntity<Boolean> responseApi = restTemplate.getForEntity(userAPIUrl, Boolean.class);
+
+            if (Boolean.TRUE.equals(responseApi.getBody()))
+            {
+                setCookie(response, user.getUsername());
+                model.addAttribute("user", user.getName());
+                return "redirect:/";
+            }
+            else{
+                model.addAttribute("status", "User does not exist");
+                return "Login";
+            }
         }
-        else{
-            model.addAttribute("status", "User does not exist");
+        catch (RestClientException e) {
+            e.printStackTrace();
+
+            model.addAttribute("status", "An error occurred");
+
             return "Login";
         }
 
@@ -68,17 +86,28 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
 
-        if (userService.checkUser(user.getEmail(), user.getUsername())){
-            model.addAttribute("status", "User already exists");
-                return "Register";
-        }
-        else{
-            Random random = new Random();
-            user.setId(random.nextLong());
-            userService.addUser(user);
-        }
+        String userAPIUrl = "http://localhost:8888/api/checkRegister/" + user.getEmail() + "/" + user.getUsername();
 
-        return "redirect:/login";
+        try {
+            ResponseEntity<Boolean> responseApi = restTemplate.getForEntity(userAPIUrl, Boolean.class);
+
+            if (Boolean.TRUE.equals(responseApi.getBody())){
+                model.addAttribute("status", "User already exists");
+                    return "Register";
+            }
+            else{
+                String createUserUrl = "http://localhost:8888/api/createNewUser";
+                ResponseEntity<String> response = restTemplate.postForEntity(createUserUrl, user, String.class);
+            }
+            return "redirect:/login";
+        }
+        catch (RestClientException e) {
+            e.printStackTrace();
+
+            model.addAttribute("status", "An error occurred");
+
+            return "Login";
+        }
     }
 
     public void setCookie(HttpServletResponse response, String username) {

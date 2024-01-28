@@ -2,41 +2,39 @@ package com.example.wineries.controllers;
 
 import com.example.wineries.models.Wineries;
 import com.example.wineries.services.WineryService;
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 @Controller
 @RequestMapping("")
 public class HomeController {
 
-    private WineryService wineryService;
+    private final WineryService wineryService;
+    private final RestTemplate restTemplate;
 
-    public HomeController(WineryService wineryService) {
+    public HomeController(WineryService wineryService, RestTemplate restTemplate) {
         this.wineryService = wineryService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("")
     public String HomePage (Model model) {
 
-        List<Wineries> wineriesList = wineryService.getWineries();
+        String winesApiUrl = "http://localhost:8888/api/";
 
-        model.addAttribute("wineires", wineriesList);
+        ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + "bestWineries", Wineries[].class);
+        model.addAttribute("wineries", Arrays.asList(response.getBody()));
 
-        model.addAttribute("allWineries", wineryService.getALlWineries());
+        response = restTemplate.getForEntity(winesApiUrl + "listWineries", Wineries[].class);
+        model.addAttribute("allWineries", Arrays.asList(response.getBody()));
 
         return "Home";
     }
@@ -44,9 +42,13 @@ public class HomeController {
     @GetMapping("/search")
     public String searchResult(@RequestParam(name = "searchQuery", required = false) String searchQuery, Model model) {
 
-        model.addAttribute("allWineries",  wineryService.getALlWineries().stream().filter(wineries -> wineries.getWineryName().contains(searchQuery)));
+        String winesApiUrl = "http://localhost:8888/api/";
 
-        model.addAttribute("wineires", wineryService.getWineries());
+        ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + "listWineries?searchQuery=" + searchQuery, Wineries[].class);
+        model.addAttribute("allWineries",  Arrays.asList(response.getBody()));
+
+        response = restTemplate.getForEntity(winesApiUrl + "bestWineries", Wineries[].class);
+        model.addAttribute("wineries", Arrays.asList(response.getBody()));
 
         return "Home";
     }

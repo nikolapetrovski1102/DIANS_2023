@@ -16,9 +16,8 @@ import java.util.Arrays;
 
 @Controller
 public class MapController {
-    private WineryService wineryService;
+    private final WineryService wineryService;
     private final RestTemplate restTemplate;
-
 
     public MapController(WineryService wineryService, RestTemplate restTemplate) {
         this.wineryService = wineryService;
@@ -33,11 +32,12 @@ public class MapController {
         String winesApiUrl = "http://localhost:8888/api/listWineries";
 
         if (searchQuery != null) {
+            ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl + "?searchQuery=" + searchQuery, Wineries[].class);
             model.addAttribute("wineires", wineryService.getALlWineries().stream().filter(wineries -> wineries.getWineryName().contains(searchQuery)));
         } else {
             try {
                 ResponseEntity<Wineries[]> response = restTemplate.getForEntity(winesApiUrl, Wineries[].class);
-                model.addAttribute("wineires", Arrays.asList(response.getBody()));
+                model.addAttribute("wineries", Arrays.asList(response.getBody()));
             } catch (RestClientException e) {
                 e.printStackTrace();
             }
